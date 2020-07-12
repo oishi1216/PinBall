@@ -42,25 +42,19 @@ public class FripperController : MonoBehaviour
                 case TouchPhase.Began:
                 case TouchPhase.Moved:
                 case TouchPhase.Stationary:
-                    if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag") {
+                    if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag")
+                    {
                         SetAngle(this.flickAngle);
                     }
                     else if (pos.x > Screen.width / 2.0f && tag == "RightFripperTag")
                     {
                         SetAngle(this.flickAngle);
                     }
-                        break;
+                    break;
                 //指を離した時の処理
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
-                    if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag")
-                    {
                         SetAngle(this.defaultAngle);
-                    }
-                    else if (pos.x > Screen.width / 2.0f && tag == "RightFripperTag")
-                    {
-                        SetAngle(this.defaultAngle);
-                    }
                     break;
              }
          }
