@@ -35,6 +35,8 @@ public class FripperController : MonoBehaviour
             //タッチの状態とタッチ位置の情報を取得
             var touch = Input.touches[i];
             var pos = Input.touches[i].position;
+            var a = touch.fingerId;
+            var b = touch.fingerId;
 
             switch (touch.phase)
             {
@@ -44,20 +46,22 @@ public class FripperController : MonoBehaviour
                 case TouchPhase.Stationary:
                     if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag")
                     {
+                        a = touch.fingerId;
                         SetAngle(this.flickAngle);
                     }
                     else if (pos.x > Screen.width / 2.0f && tag == "RightFripperTag")
                     {
+                        b = touch.fingerId;
                         SetAngle(this.flickAngle);
                     }
                     break;
                 //指を離した時の処理
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
-                    if (touch.fingerId == 0) { 
+                    if (touch.fingerId == a) { 
                         SetAngle(this.defaultAngle);
                     }
-                    else if (touch.fingerId == 1)
+                    else if (touch.fingerId == b)
                     {
                         SetAngle(this.defaultAngle);
                     }
