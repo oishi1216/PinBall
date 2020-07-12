@@ -54,7 +54,13 @@ public class FripperController : MonoBehaviour
                 //指を離した時の処理
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
+                    if (touch.fingerId == 0) { 
                         SetAngle(this.defaultAngle);
+                    }
+                    else if (touch.fingerId == 1)
+                    {
+                        SetAngle(this.defaultAngle);
+                    }
                     break;
              }
          }
