@@ -12,6 +12,8 @@ public class FripperController : MonoBehaviour
     //弾いた時の傾き
     private float flickAngle = -20;
 
+    private int fld;
+
     // Use this for initialization
     void Start()
     {
@@ -27,16 +29,15 @@ public class FripperController : MonoBehaviour
     {
 
         //タッチの回数を取得
-        var touchCount = Input.touchCount;
+        int touchCount = Input.touchCount;
 
         //タッチする毎に処理を実行
-        for (var i = 0; i < touchCount; i++)
+        for (int i = 0; i < touchCount; i++)
         {
             //タッチの状態とタッチ位置の情報を取得
-            var touch = Input.touches[i];
-            var pos = Input.touches[i].position;
-            var a = touch.fingerId;
-            var b = touch.fingerId;
+            Touch touch = Input.touches[i];
+            Vector2 pos = Input.touches[i].position;
+
 
             switch (touch.phase)
             {
@@ -46,22 +47,22 @@ public class FripperController : MonoBehaviour
                 case TouchPhase.Stationary:
                     if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag")
                     {
-                        a = touch.fingerId;
+                        fld = 0;
                         SetAngle(this.flickAngle);
                     }
                     else if (pos.x > Screen.width / 2.0f && tag == "RightFripperTag")
                     {
-                        b = touch.fingerId;
+                        fld = 1;
                         SetAngle(this.flickAngle);
                     }
                     break;
                 //指を離した時の処理
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
-                    if (touch.fingerId == a) { 
+                    if (fld == 0 && tag == "LeftFripperTag") { 
                         SetAngle(this.defaultAngle);
                     }
-                    else if (touch.fingerId == b)
+                    else if (fld == 1 && tag == "RightFripperTag")
                     {
                         SetAngle(this.defaultAngle);
                     }
