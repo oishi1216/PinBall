@@ -12,7 +12,8 @@ public class FripperController : MonoBehaviour
     //弾いた時の傾き
     private float flickAngle = -20;
 
-    private int fld;
+    private bool isLeftPush;
+    private bool isRightPush;
 
     // Use this for initialization
     void Start()
@@ -47,23 +48,26 @@ public class FripperController : MonoBehaviour
                 case TouchPhase.Stationary:
                     if (pos.x < Screen.width / 2.0f && tag == "LeftFripperTag")
                     {
-                        fld = 0;
+                        isLeftPush = true;
                         SetAngle(this.flickAngle);
                     }
                     else if (pos.x > Screen.width / 2.0f && tag == "RightFripperTag")
                     {
-                        fld = 1;
+                        isRightPush = true;
                         SetAngle(this.flickAngle);
                     }
                     break;
                 //指を離した時の処理
                 case TouchPhase.Ended:
                 case TouchPhase.Canceled:
-                    if (fld == 0 && tag == "LeftFripperTag") { 
+                    if (isLeftPush == true && tag == "LeftFripperTag") {
+
+                        isLeftPush = false;
                         SetAngle(this.defaultAngle);
                     }
-                    else if (fld == 1 && tag == "RightFripperTag")
+                    else if (isRightPush == true && tag == "RightFripperTag")
                     {
+                        isRightPush = false;
                         SetAngle(this.defaultAngle);
                     }
                     break;
